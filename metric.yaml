@@ -18,7 +18,9 @@ data:
       - add_cloud_metadata:
 
     output.elasticsearch:
-      hosts: ['elasticsearch-master:9200']
+      hosts: ['${ELASTICSEARCH_HOST:elasticsearch-master}:${ELASTICSEARCH_PORT:9200}']
+      username: ${ELASTICSEARCH_USERNAME}
+      password: ${ELASTICSEARCH_PASSWORD}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -77,25 +79,12 @@ data:
       period: 10s
       host: ${NODE_NAME}
       hosts: ["localhost:10249"]
-
-  prometheus.yml: |-
-    - module: prometheus
-      period: 10s
-      metricsets: ["collector"]
-      hosts: ["hs-main-dds-svc.rga:8080"]
-      metrics_path: /metrics
-      #metrics_filters:
-      #  include: []
-      #  exclude: []
-      #username: "user"
-      #password: "secret"
-
 ---
 # Deploy a Metricbeat instance per node for node metrics retrieval
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: metricbeat-1
+  name: metricbeat
   namespace: logging
   labels:
     k8s-app: metricbeat
@@ -109,7 +98,7 @@ spec:
         k8s-app: metricbeat
     spec:
       serviceAccountName: metricbeat
-      terminationGracePeriodSeconds: 3
+      terminationGracePeriodSeconds: 5
       hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet
       containers:
@@ -125,14 +114,6 @@ spec:
           value: elasticsearch-master
         - name: ELASTICSEARCH_PORT
           value: "9200"
-        - name: ELASTICSEARCH_USERNAME
-          value: elastic
-        - name: ELASTICSEARCH_PASSWORD
-          value: changeme
-        - name: ELASTIC_CLOUD_ID
-          value:
-        - name: ELASTIC_CLOUD_AUTH
-             value:
         - name: NODE_NAME
           valueFrom:
             fieldRef:
@@ -207,8 +188,6 @@ data:
 
     output.elasticsearch:
       hosts: ['${ELASTICSEARCH_HOST:elasticsearch-master}:${ELASTICSEARCH_PORT:9200}']
-     # username: ${ELASTICSEARCH_USERNAME}
-     # password: ${ELASTICSEARCH_PASSWORD}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -229,9 +208,6 @@ data:
         - state_container
         - state_cronjob
         - state_resourcequota
-        - state_service
-        - state_persistentvolume
-        - state_persistentvolumeclaim
         # Uncomment this to get k8s events:
         #- event
       period: 10s
