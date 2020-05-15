@@ -16,9 +16,15 @@ data:
 
     processors:
       - add_cloud_metadata:
+      - add_kubernetes_metadata:
+          host: ${NODE_NAME}
+          in_cluster: true
 
     output.elasticsearch:
       hosts: ['${ELASTICSEARCH_HOST:elasticsearch-master}:${ELASTICSEARCH_PORT:9200}']
+    setup.kibana:
+      host: "mock-kibana.app-poc.pantheon.hedgeservx.com:5601"
+    setup.dashboards.enabled: true
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -83,6 +89,7 @@ data:
       metricsets: ["collector"]
       hosts: ["hs-main-dds-svc.rga:8080"]
       metrics_path: /metrics
+
 ---
 # Deploy a Metricbeat instance per node for node metrics retrieval
 apiVersion: apps/v1
@@ -186,6 +193,9 @@ data:
 
     processors:
       - add_cloud_metadata:
+      - add_kubernetes_metadata:
+          host: ${NODE_NAME}
+          in_cluster: true
 
     cloud.id: ${ELASTIC_CLOUD_ID}
     cloud.auth: ${ELASTIC_CLOUD_AUTH}
