@@ -126,7 +126,7 @@ spec:
         ]
         env:
         - name: ELASTICSEARCH_HOST
-          value: elasticsearch
+          value: elasticsearch-master
         - name: ELASTICSEARCH_PORT
           value: "9200"
         - name: ROLL
