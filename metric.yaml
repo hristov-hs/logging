@@ -80,7 +80,7 @@ data:
         - volume
       period: 10s
       host: ${NODE_NAME}
-      hosts: ["http://${HOSTNAME}:10250"]
+      hosts: ["localhost:10250"]
     - module: kubernetes
       metricsets:
         - state_node
