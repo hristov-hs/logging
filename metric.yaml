@@ -80,7 +80,7 @@ data:
         - volume
       period: 10s
       host: ${NODE_NAME}
-      hosts: ["localhost:10255"]
+      hosts: ["https://${HOSTNAME}:10250"]
     - module: kubernetes
       metricsets:
         - state_node
@@ -88,8 +88,8 @@ data:
         - state_replicaset
         - state_pod
         - state_container
-        - state_cronjob
-        - state_resourcequota
+        #- state_cronjob
+        #- state_resourcequota
         # Uncomment this to get k8s events:
         #- event
       period: 10s
@@ -331,6 +331,7 @@ rules:
   resources:
   - statefulsets
   - deployments
+  - replicasets
   verbs: ["get", "list", "watch"]
 - apiGroups:
   - ""
