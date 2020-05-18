@@ -17,15 +17,15 @@ data:
     metricbeat.autodiscover:
       providers:
         - type: kubernetes
-              include_annotations: ["prometheus.io.scrape"]
-              templates:
-                - condition:
-                    contains:
-                      kubernetes.annotations.prometheus.io/scrape: "true"
-                  config:
-                    - module: prometheus
-                      metricsets: ["collector"]
-                      hosts: "${data.host}:${data.port}"
+          include_annotations: ["prometheus.io.scrape"]
+          templates:
+            - condition:
+                contains:
+                  kubernetes.annotations.prometheus.io/scrape: "true"
+              config:
+                - module: prometheus
+                  metricsets: ["collector"]
+                  hosts: "${data.host}:${data.port}"
 
     processors:
       - add_cloud_metadata:
