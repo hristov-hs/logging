@@ -22,24 +22,11 @@ data:
         - decode_json_fields:
             fields: ["message"]
             overwrite_keys: true
-            target: ""
+            target: "rnd"
         - drop_event:
             when:
               equals:
                 kubernetes.container.name: "filebeat"
-
-
-    # To enable hints based autodiscover, remove `filebeat.inputs` configuration and uncomment this:
-    #filebeat.autodiscover:
-    #  providers:
-    #    - type: kubernetes
-    #      node: ${NODE_NAME}
-    #      hints.enabled: true
-    #      hints.default_config:
-    #        type: container
-    #        paths:
-    #          - /var/log/containers/*${data.kubernetes.container.id}.log
-
     processors:
       - add_cloud_metadata:
       - add_host_metadata:
