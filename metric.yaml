@@ -31,7 +31,8 @@ data:
       - add_cloud_metadata:
 
     output.elasticsearch:
-      hosts: ['${ELASTICSEARCH_HOST:elasticsearch-master}:${ELASTICSEARCH_PORT:9200}']
+      hosts: ['${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}']
+      api_key: tDCOBHBASVap7j_XvK5OnQ
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -126,9 +127,9 @@ spec:
         ]
         env:
         - name: ELASTICSEARCH_HOST
-          value: elasticsearch-master
+          value: d00bd6e2761143bd9a32501ad3b4397f.us-east-1.aws.found.io
         - name: ELASTICSEARCH_PORT
-          value: "9200"
+          value: "9243"
         - name: ROLL
           value: "1"
         - name: NODE_NAME
@@ -207,7 +208,7 @@ data:
     cloud.auth: ${ELASTIC_CLOUD_AUTH}
 
     output.elasticsearch:
-      hosts: ['${ELASTICSEARCH_HOST:elasticsearch-master}:${ELASTICSEARCH_PORT:9200}']
+      hosts: ['${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}']
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -263,9 +264,9 @@ spec:
         ]
         env:
         - name: ELASTICSEARCH_HOST
-          value: elasticsearch-master
+          value: d00bd6e2761143bd9a32501ad3b4397f.us-east-1.aws.found.io
         - name: ELASTICSEARCH_PORT
-          value: "9200"
+          value: "9243"
         - name: NODE_NAME
           valueFrom:
             fieldRef:
