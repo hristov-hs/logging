@@ -48,7 +48,8 @@ data:
     cloud.auth: ${ELASTIC_CLOUD_AUTH}
 
     output.elasticsearch:
-      hosts: ['${ELASTICSEARCH_HOST:elasticsearch-master}:${ELASTICSEARCH_PORT:9200}']
+      hosts: ['${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}']
+      api_key: CV-BweGlTSOKRr5pClcQdQ
 
 ---
 apiVersion: apps/v1
@@ -80,9 +81,9 @@ spec:
         ]
         env:
         - name: ELASTICSEARCH_HOST
-          value: elasticsearch-master
+          value: d00bd6e2761143bd9a32501ad3b4397f.us-east-1.aws.found.io
         - name: ELASTICSEARCH_PORT
-          value: "9200"
+          value: "9243"
         - name: ELASTICSEARCH_USERNAME
           value: elastic
         - name: ELASTICSEARCH_PASSWORD
