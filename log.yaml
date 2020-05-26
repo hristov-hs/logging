@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: filebeat-config
-  namespace: logging
+  namespace: mock
   labels:
     k8s-app: filebeat
 data:
@@ -55,7 +55,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: filebeat
-  namespace: logging
+  namespace: mock
   labels:
     k8s-app: filebeat
 spec:
@@ -142,7 +142,7 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: filebeat
-  namespace: logging
+  namespace: mock
 roleRef:
   kind: ClusterRole
   name: filebeat
@@ -168,7 +168,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: filebeat
-  namespace: logging
+  namespace: mock
   labels:
     k8s-app: filebeat
 ---
