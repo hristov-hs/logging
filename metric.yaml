@@ -1,3 +1,4 @@
+# 27/05/2020 - working metricbeat + prometheus metrics
 ---
 apiVersion: v1
 kind: ConfigMap
