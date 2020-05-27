@@ -78,7 +78,7 @@ data:
         - volume
       period: 10s
       host: ${NODE_NAME}
-      hosts: ["https://${HOSTNAME}:10250"]
+      hosts: ["https://${NODE_NAME}:10250"]
       bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
       ssl.verification_mode: "none"
     - module: kubernetes
@@ -113,8 +113,8 @@ spec:
     spec:
       serviceAccountName: metricbeat
       terminationGracePeriodSeconds: 30
-      hostNetwork: true
-      dnsPolicy: ClusterFirstWithHostNet
+     # hostNetwork: true
+     # dnsPolicy: ClusterFirstWithHostNet
       containers:
       - name: metricbeat
         imagePullPolicy: Always
