@@ -25,7 +25,7 @@ data:
               config:
                 - module: prometheus
                   metricsets: ["collector"]
-                  hosts: "${data.host}:${data.port}"
+                  hosts: "${data.host}:${data.kubernetes.annotations.prometheus.io/port}"
 
     processors:
       - add_cloud_metadata:
